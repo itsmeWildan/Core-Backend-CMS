@@ -1,152 +1,98 @@
-# Core Backend CMS API Documentation
+# 🚀 Core Backend CMS API
 
-## Introduction
+![NestJS](https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
 
-This is a Core Backend for a Content Management System (CMS) platform built using **NestJS**, **TypeORM**, **MySQL**, **Passport JWT**, and **Bcrypt**. This documentation is based on the official test routes configured in HTTPie.
-
-## Getting Started
-
-To get started with this API, follow these steps:
-
-1. **Clone the repository:**
-   ```
-   git clone git@github.com:itsmeWildan/Core-Backend-CMS.git
-   Install dependencies:
-   ```
-
-npm install
-Set up your environment variables: Create a .env file in the root directory and add the following variables:
-
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=root
-DB_PASSWORD=
-DB_NAME=blognest
-JWT_SECRET=jwtsecretbuatansaya
-Run the server:
-
-npm run start:dev
-API Routes
-🔐 Authentication & Users
-Endpoints for managing users and sessions.
-
-Register User
-
-POST /auth/register
-
-Body (Form):
-
-name: String
-
-email: String
-
-password: String
-
-Login User
-
-POST /auth/login
-
-Body (Form):
-
-email: String
-
-password: String
-
-Response: Returns JWT Access Token.
-
-Get All Users
-
-GET /users
-
-Requires Bearer Token.
-
-Check Auth Profile
-
-GET /auth/getUser
-
-Retrieve current authenticated user data.
-
-📄 Article Module
-Endpoints for managing articles/posts.
-
-Tampil Semua Article
-
-GET /article
-
-Detail Article
-
-GET /article/:id
-
-Tambah Article
-
-POST /article
-
-Body (Form):
-
-title: String
-
-content: String
-
-status: String (e.g., "SUCCESS")
-
-Update Article
-
-PUT /article/:id
-
-Body (Form):
-
-title: String
-
-status: String
-
-Delete Article
-
-DELETE /article/:id
-
-📂 Category Module
-Endpoints for managing content categories.
-
-Tampil Semua Category
-
-GET /category
-
-Tambah Category
-
-POST /category
-
-Body (Form):
-
-name: String (e.g., "ReactJS")
-
-Detail Category
-
-GET /category/:id
-
-Update Category
-
-PUT /category/:id
-
-Body (Form):
-
-name: String
-
-Delete Category
-
-DELETE /category/:id
-
-Testing with HTTPie
-You can import the httpie-space-nest-dev.json file into your HTTPie Desktop to test these endpoints directly. Make sure to set the {{URL}} environment variable to http://localhost:3000.
-
-Maintained by itsmeWildan
+Backend inti untuk platform **Content Management System (CMS)** yang tangguh. Dibangun dengan arsitektur modular **NestJS**, menggunakan **TypeORM** untuk manajemen database, serta diamankan dengan **Passport JWT** dan **Bcrypt**.
 
 ---
 
-### Cara Update ke GitHub:
+## 🛠️ Panduan Persiapan (Getting Started)
 
-Setelah file `README.md` diperbarui dengan konten di atas, jalankan perintah berikut di terminal:
+Ikuti langkah-langkah berikut untuk menjalankan proyek di lingkungan lokal:
 
-```
-git add README.md
-git commit -m "docs: sync API documentation with HTTPie test routes"
-git push origin main
-```
+1.  **Clone Repositori**
+    ```bash
+    git clone git@github.com:itsmeWildan/Core-Backend-CMS.git
+    cd Core-Backend-CMS
+    ```
+
+2.  **Instalasi Dependensi**
+    ```bash
+    npm install
+    ```
+
+3.  **Konfigurasi Environment**
+    Buat file `.env` di root direktori:
+    ```env
+    DB_HOST=localhost
+    DB_PORT=3306
+    DB_USER=root
+    DB_PASSWORD=
+    DB_NAME=blognest
+    JWT_SECRET=jwtsecretbuatansaya
+    ```
+
+4.  **Jalankan Server**
+    ```bash
+    npm run start:dev
+    ```
+
+---
+
+## 📡 Dokumentasi API (Routes)
+
+### 🔐 Modul Autentikasi & User
+| Method | Endpoint | Fungsi | Kebutuhan Auth |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/auth/register` | Registrasi pengguna baru | ❌ Bebas |
+| `POST` | `/auth/login` | Login & ambil JWT Token | ❌ Bebas |
+| `GET` | `/auth/getUser` | Ambil profil user saat ini | ✅ Bearer Token |
+| `GET` | `/users` | List semua user (Admin) | ✅ Bearer Token |
+
+---
+
+### 📄 Modul Artikel (Content)
+Digunakan untuk mengelola postingan atau konten utama.
+
+* `GET /article` — Menampilkan semua daftar artikel.
+* `GET /article/:id` — Mengambil detail satu artikel.
+* `POST /article` — Membuat artikel baru.
+    * **Payload:** `{ "title": string, "content": string, "status": "SUCCESS" }`
+* `PUT /article/:id` — Memperbarui data artikel.
+* `DELETE /article/:id` — Menghapus artikel dari database.
+
+---
+
+### 📂 Modul Kategori
+Manajemen kategori untuk pengelompokan konten.
+
+* `GET /category` — Daftar semua kategori.
+* `POST /category` — Tambah kategori (Contoh: `"ReactJS"`).
+* `GET /category/:id` — Detail kategori tertentu.
+* `PUT /category/:id` — Edit nama kategori.
+* `DELETE /category/:id` — Hapus kategori.
+
+---
+
+## 🧪 Pengujian (Testing)
+
+Proyek ini mendukung pengujian via **HTTPie**.
+1. Buka **HTTPie Desktop**.
+2. Import file `httpie-space-nest-dev.json`.
+3. Pastikan environment variable `{{URL}}` sudah mengarah ke `http://localhost:3000`.
+
+---
+
+## 📦 Script Perintah
+
+| Perintah | Deskripsi |
+| :--- | :--- |
+| `npm run start:dev` | Menjalankan server dalam mode *Development* |
+| `npm run build` | Kompilasi kode ke dalam folder `/dist` |
+| `npm run migration:run` | Menjalankan migrasi database TypeORM |
+| `npm run lint` | Memeriksa kualitas penulisan kode |
+
+---
+**Maintained by [itsmeWildan](https://github.com/itsmeWildan)** *© 2025 Core Backend CMS Project.*
